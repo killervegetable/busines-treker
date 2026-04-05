@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:busines_treker"
+             x:Class="busines_treker.SettingsPage"
+             Title="Настройки">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="18">
+            <Label Text="Язык" FontAttributes="Bold" />
+            <Picker x:Name="LanguagePicker" />
+
+            <Label Text="Валюта" FontAttributes="Bold" />
+            <Picker x:Name="CurrencyPicker" />
+
+            <Button Text="Сохранить" Clicked="SaveSettings_Clicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

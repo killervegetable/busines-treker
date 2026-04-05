@@ -11,4 +11,6 @@
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
+    <!-- Settings removed from shell to avoid XAML sourcegen issues; opened from MainPage toolbar -->
+
 </Shell>

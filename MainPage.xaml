@@ -2,41 +2,121 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:busines_treker"
-             x:Class="busines_treker.MainPage">
+             x:Class="busines_treker.MainPage"
+             BackgroundColor="#0F0F0F">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
+    <!-- toolbar item defined in code-behind to avoid source-gen ordering issues -->
 
-            <Label
-                Text="{x:Static local:Loc.Title}"
-                FontSize="32"
-                HorizontalOptions="Center" />
+    <Grid Padding="16" RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-            <Entry x:Name="AmountEntry" Placeholder="{x:Static local:Loc.AmountPlaceholder}" Keyboard="Numeric" />
-            <Entry x:Name="CategoryEntry" Placeholder="{x:Static local:Loc.CategoryPlaceholder}" />
-            <Entry x:Name="NoteEntry" Placeholder="{x:Static local:Loc.NotePlaceholder}" />
+        <!-- Header: title and current date -->
+        <Grid ColumnDefinitions="*,Auto">
+            <Label Text="{x:Static local:Loc.Title}" FontSize="22" TextColor="White" HorizontalOptions="Start" />
+            <Label x:Name="CurrentDateLabel" Grid.Column="1" TextColor="#BFBFBF" VerticalOptions="Center" HorizontalOptions="End" />
+        </Grid>
+        <!-- toolbar is added from code-behind -->
 
-            <Button
-                x:Name="AddBtn"
-                Text="{x:Static local:Loc.AddButton}"
-                Clicked="AddExpense_Clicked" />
+        <!-- Segmented controls (simple) -->
+        <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="8">
+            <Button Text="Месяц" BackgroundColor="#1F1F1F" TextColor="White" CornerRadius="18" Padding="12,6" />
+            <Button Text="Год" BackgroundColor="#1F1F1F" TextColor="White" CornerRadius="18" Padding="12,6" />
+        </StackLayout>
 
-            <CollectionView x:Name="ExpensesList">
+        <!-- Chart + Legend -->
+        <Grid Grid.Row="2" ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Frame HasShadow="False" BackgroundColor="#121212" CornerRadius="12" Padding="12">
+                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <GraphicsView x:Name="DonutChartView" HeightRequest="180" WidthRequest="180">
+                        <GraphicsView.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="DonutTapped" NumberOfTapsRequired="1" />
+                        </GraphicsView.GestureRecognizers>
+                    </GraphicsView>
+                    <Label x:Name="DonutCenterLabel" Text="Март 2025" TextColor="White" HorizontalOptions="Center" Margin="0,8,0,0">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="DonutTapped" NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+            </Frame>
+
+            <CollectionView x:Name="CategoryList" Grid.Column="1" ItemsLayout="VerticalList">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Padding="10">
-                            <Label Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}" />
-                            <Label Text="{Binding Amount, StringFormat='{}{0:C}'}" />
-                            <Label Text="{Binding Category}" />
-                            <Label Text="{Binding Note}" />
-                        </StackLayout>
+                        <Grid Padding="8" ColumnDefinitions="24,*,Auto" VerticalOptions="Center">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLegendItemTapped" />
+                            </Grid.GestureRecognizers>
+                            <BoxView Color="{Binding Color}" WidthRequest="14" HeightRequest="14" CornerRadius="7" VerticalOptions="Center" />
+                            <Label Grid.Column="1" Text="{Binding Name}" TextColor="White" FontSize="14" VerticalOptions="Center" />
+                            <Label Grid.Column="2" Text="{Binding Percentage, StringFormat='{}{0:P1}'}" TextColor="#BFBFBF" VerticalOptions="Center" />
+                        </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+        </Grid>
 
-        </VerticalStackLayout>
-    </ScrollView>
+        <!-- Expenses list (below chart area) -->
+        <CollectionView x:Name="ExpensesList" Grid.Row="3" Margin="0,12,0,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems Mode="Execute">
+                                <SwipeItem Text="Удалить" BackgroundColor="#E53935" Invoked="OnDeleteSwipeItemInvoked" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                            <Grid Padding="10">
+                            <!-- invisible button to capture long-press (Pressed/Released) -->
+                            <Button Grid.ColumnSpan="4" BackgroundColor="Transparent" Opacity="0" Pressed="OnExpensePressed" Released="OnExpenseReleased" />
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Category}" Grid.Column="0" TextColor="White" />
+                            <Label Text="{Binding Note}" Grid.Column="1" TextColor="#BFBFBF" />
+                            <Label Text="{Binding Amount, StringFormat='{}{0:C}'}" Grid.Column="2" TextColor="White" />
+                            <Button Grid.Column="3" Text="✖" BackgroundColor="#E53935" TextColor="White" WidthRequest="40" HeightRequest="32" CornerRadius="6" Clicked="DeleteItem_Clicked" />
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Floating add button -->
+        <Grid Grid.Row="3">
+            <Button x:Name="AddFab" Text="+" WidthRequest="56" HeightRequest="56" CornerRadius="28" BackgroundColor="#FFD54F" HorizontalOptions="Center" VerticalOptions="Center" Clicked="AddFab_Clicked" />
+        </Grid>
+
+        <!-- Overlay for adding expense -->
+        <Grid x:Name="AddOverlay" IsVisible="False" BackgroundColor="#80000000">
+            <Grid HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="320">
+                <Frame BackgroundColor="#121212" CornerRadius="12" Padding="16" HasShadow="False">
+                    <VerticalStackLayout Spacing="12">
+                        <Entry x:Name="AmountEntry" Placeholder="{x:Static local:Loc.AmountPlaceholder}" Keyboard="Numeric" TextColor="White" />
+                        <Entry x:Name="CategoryEntry" Placeholder="{x:Static local:Loc.CategoryPlaceholder}" TextColor="White" />
+                        <Entry x:Name="NoteEntry" Placeholder="{x:Static local:Loc.NotePlaceholder}" TextColor="White" />
+                        <HorizontalStackLayout Spacing="12" HorizontalOptions="End">
+                            <Button Text="Отмена" BackgroundColor="#333333" TextColor="White" Clicked="CancelAdd_Clicked" />
+                            <Button Text="Сохранить" BackgroundColor="#FFD54F" TextColor="#000" Clicked="SaveAdd_Clicked" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+        </Grid>
+
+    </Grid>
 
 </ContentPage>

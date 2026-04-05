@@ -43,6 +43,20 @@ namespace busines_treker
             var culture = System.Globalization.CultureInfo.CurrentUICulture;
             Localization.LocalizationResourceManager.Instance.SetCulture(culture);
 
+            // apply saved currency symbol if present
+            var savedCur = Preferences.Get("currency", string.Empty);
+            if (!string.IsNullOrEmpty(savedCur))
+            {
+                // simple mapping
+                var symbol = savedCur == "USD" ? "$" : savedCur == "EUR" ? "€" : savedCur == "RUB" ? "₽" : "₴";
+                var current = System.Globalization.CultureInfo.CurrentCulture;
+                var clone = (System.Globalization.CultureInfo)current.Clone();
+                clone.NumberFormat = (System.Globalization.NumberFormatInfo)current.NumberFormat.Clone();
+                clone.NumberFormat.CurrencySymbol = symbol;
+                System.Globalization.CultureInfo.CurrentCulture = clone;
+                System.Globalization.CultureInfo.DefaultThreadCurrentCulture = clone;
+            }
+
             return app;
         }
     }

@@ -7,5 +7,6 @@ namespace busines_treker.Services
     {
         Task AddExpenseAsync(Expense expense);
         Task<List<Expense>> GetExpensesAsync();
+        Task DeleteExpenseAsync(Guid id);
     }
 }

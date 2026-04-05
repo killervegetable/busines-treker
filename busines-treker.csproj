@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net10.0-android</TargetFrameworks>
@@ -47,6 +47,21 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|AnyCPU'">
+	  <AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
+	  <AndroidUseAapt2>True</AndroidUseAapt2>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-android|AnyCPU'">
+	  <AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
+	  <AndroidUseAapt2>True</AndroidUseAapt2>
+	</PropertyGroup>
+
+	<PropertyGroup>
+	  <!-- Поддерживаемые ABI: armeabi-v7a и arm64-v8a -->
+	  <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -72,6 +87,12 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="SettingsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

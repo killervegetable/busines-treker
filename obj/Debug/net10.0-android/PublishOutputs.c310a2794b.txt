@@ -1,0 +1,3 @@
+C:\Users\retur\source\repos\busines-treker\publish\com.companyname.businestreker-Signed.apk
+C:\Users\retur\source\repos\busines-treker\publish\com.companyname.businestreker.apk
+C:\Users\retur\source\repos\busines-treker\publish\_Microsoft.Android.Resource.Designer.dll

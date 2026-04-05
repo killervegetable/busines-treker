@@ -23,5 +23,15 @@ namespace busines_treker.Services
         {
             return await _context.Expenses.OrderByDescending(e => e.Date).ToListAsync();
         }
+
+        public async Task DeleteExpenseAsync(Guid id)
+        {
+            var e = await _context.Expenses.FindAsync(id);
+            if (e != null)
+            {
+                _context.Expenses.Remove(e);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }
