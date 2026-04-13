@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Microsoft.Maui.Graphics;
+using System.Threading.Tasks;
 using busines_treker.Controls;
-using System.Collections.Generic;
+using busines_treker.Localization;
 using busines_treker.Models;
 using busines_treker.Services;
 using Microsoft.Extensions.DependencyInjection;
-using busines_treker.Localization;
+using Microsoft.Maui.ApplicationModel;
+using Microsoft.Maui.Devices;
+using Microsoft.Maui.Graphics;
+using Microsoft.Maui.Storage;
+using System.Text.Json;
 
 namespace busines_treker
 {
@@ -16,9 +21,12 @@ namespace busines_treker
         private readonly IExpenseService _expenseService;
         private readonly DonutDrawable _donut = new DonutDrawable();
 
-        private Label _currentDateLabel;
+        private Label? _currentDateLabel;
         // track CTS for long press
         private readonly Dictionary<Guid, System.Threading.CancellationTokenSource> _pressCts = new Dictionary<Guid, System.Threading.CancellationTokenSource>();
+
+        // categories in memory
+        private List<string> _categories = new List<string>();
 
         public MainPage()
         {
@@ -33,8 +41,41 @@ namespace busines_treker
             if (_currentDateLabel != null)
                 _currentDateLabel.Text = DateTime.Now.ToString("dd MMMM yyyy", CultureInfo.CurrentCulture);
             // add settings toolbar item
-            ToolbarItems.Add(new ToolbarItem("⚙", null, async () => await Navigation.PushAsync(new SettingsPage())));
+            ToolbarItems.Add(new ToolbarItem("\u2699", null, async () => await Navigation.PushAsync(new SettingsPage())));
+            // call async loader (fire-and-forget from ctor)
+            _ = LoadCategoriesAsync();
             LoadExpenses();
+        }
+
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            base.OnSizeAllocated(width, height);
+            // simple responsive behavior: for narrow screens stack chart above legend; for wider — side-by-side
+            if (ChartGrid != null)
+            {
+                if (width < 600) // phone narrow: single column
+                {
+                    ChartGrid.ColumnDefinitions.Clear();
+                    ChartGrid.RowDefinitions.Clear();
+                    ChartGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    ChartGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+                    ChartGrid.SetRow(ChartGrid.Children[0], 0); // frame (donut)
+                    ChartGrid.SetRow(ChartGrid.Children[1], 1); // category list
+                    ChartGrid.SetColumn(ChartGrid.Children[0], 0);
+                    ChartGrid.SetColumn(ChartGrid.Children[1], 0);
+                }
+                else // wide: two columns
+                {
+                    ChartGrid.RowDefinitions.Clear();
+                    ChartGrid.ColumnDefinitions.Clear();
+                    ChartGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) });
+                    ChartGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
+                    ChartGrid.SetColumn(ChartGrid.Children[0], 0);
+                    ChartGrid.SetRow(ChartGrid.Children[0], 0);
+                    ChartGrid.SetColumn(ChartGrid.Children[1], 1);
+                    ChartGrid.SetRow(ChartGrid.Children[1], 0);
+                }
+            }
         }
 
         private async void OpenSettings_Clicked(object? sender, EventArgs e)
@@ -46,7 +87,7 @@ namespace busines_treker
         {
             if (sender is SwipeItem si && si.BindingContext is Models.Expense exp)
             {
-                var ok = await DisplayAlert("Подтвердить", $"Удалить расход {exp.Amount:C}?", "Да", "Нет");
+                var ok = await DisplayAlertAsync("Подтвердить", $"Удалить расход {exp.Amount:C}?", "Да", "Нет");
                 if (!ok) return;
                 await _expenseService.DeleteExpenseAsync(exp.Id);
                 LoadExpenses();
@@ -96,19 +137,19 @@ namespace busines_treker
                 centerLabel.Text = totalSum > 0 ? totalSum.ToString("C") : DateTime.Now.ToString("MMMM yyyy", CultureInfo.CurrentCulture);
         } 
 
-        private void DonutTapped(object? sender, EventArgs e)
+        private async void DonutTapped(object? sender, EventArgs e)
         {
             // show total details
-            var items = _expenseService.GetExpensesAsync().Result;
+            var items = await _expenseService.GetExpensesAsync();
             var total = items.Sum(x => x.Amount);
-            DisplayAlert("Итого", $"Всего: {total:C}", "OK");
+            await DisplayAlertAsync("Итого", $"Всего: {total:C}", "OK");
         }
 
-        private void OnLegendItemTapped(object? sender, EventArgs e)
+        private async void OnLegendItemTapped(object? sender, EventArgs e)
         {
             if (sender is VisualElement ve && ve.BindingContext is LegendItem li)
             {
-                DisplayAlert(li.Name, $"Сумма: {li.Total:C}\nПроцент: {li.Percentage:P1}", "OK");
+                await DisplayAlertAsync(li.Name, $"Сумма: {li.Total:C}\nПроцент: {li.Percentage:P1}", "OK");
             }
         }
 
@@ -148,7 +189,7 @@ namespace busines_treker
                         // still pressed -> show confirmation on UI thread
                         await MainThread.InvokeOnMainThreadAsync(async () =>
                         {
-                            var ok = await DisplayAlert("Подтвердить", $"Удалить расход {exp.Amount:C}?", "Да", "Нет");
+                            var ok = await DisplayAlertAsync("Подтвердить", $"Удалить расход {exp.Amount:C}?", "Да", "Нет");
                             if (ok)
                             {
                                 await _expenseService.DeleteExpenseAsync(exp.Id);
@@ -201,7 +242,7 @@ namespace busines_treker
         {
             if (sender is Button btn && btn.BindingContext is Expense exp)
             {
-                var ok = await DisplayAlert("Подтвердить", $"Удалить расход {exp.Amount:C}?", "Да", "Нет");
+                var ok = await DisplayAlertAsync("Подтвердить", $"Удалить расход {exp.Amount:C}?", "Да", "Нет");
                 if (!ok) return;
                 await _expenseService.DeleteExpenseAsync(exp.Id);
                 LoadExpenses();
@@ -212,27 +253,96 @@ namespace busines_treker
         {
             if (decimal.TryParse(AmountEntry.Text, out var amount))
             {
+                var selectedCategory = (CategoryPicker.SelectedItem as string) ?? string.Empty;
+
                 var exp = new Expense
                 {
                     Amount = amount,
-                    Category = CategoryEntry.Text,
+                    Category = string.IsNullOrWhiteSpace(selectedCategory) ? null : selectedCategory,
                     Note = NoteEntry.Text,
                     Date = DateTime.Now
                 };
 
                 await _expenseService.AddExpenseAsync(exp);
                 AmountEntry.Text = string.Empty;
-                CategoryEntry.Text = string.Empty;
+                // keep category selection to allow quick subsequent adds
                 NoteEntry.Text = string.Empty;
 
                 LoadExpenses();
+                // ensure category list includes used category
+                if (!string.IsNullOrWhiteSpace(selectedCategory) && !_categories.Contains(selectedCategory))
+                {
+                    _categories.Add(selectedCategory);
+                    SaveCategories();
+                    RefreshCategoryPicker();
+                }
             }
             else
             {
-                await DisplayAlert("Error", LocalizationResourceManager.Instance["ErrorInvalidAmount"], "OK");
+                await DisplayAlertAsync("Error", LocalizationResourceManager.Instance["ErrorInvalidAmount"], "OK");
             }
         }
 
-        // counter UI removed for expense tracker
+        private async void AddCategory_Clicked(object sender, EventArgs e)
+        {
+            var result = await DisplayPromptAsync("Новая категория", "Введите название категории:", "Добавить", "Отмена", null, maxLength: 50, keyboard: Keyboard.Text);
+            if (!string.IsNullOrWhiteSpace(result))
+            {
+                if (!_categories.Contains(result))
+                {
+                    _categories.Add(result);
+                    SaveCategories();
+                    RefreshCategoryPicker();
+                    // select new category
+                    CategoryPicker.SelectedItem = result;
+                }
+                else
+                {
+                    await DisplayAlertAsync("Информация", "Категория уже существует", "OK");
+                }
+            }
+        }
+
+        private async Task LoadCategoriesAsync()
+        {
+            try
+            {
+                var json = Preferences.Get("categories", string.Empty);
+                if (!string.IsNullOrEmpty(json))
+                {
+                    _categories = JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
+                }
+            }
+            catch
+            {
+                await DisplayAlertAsync("Ошибка", "Не удалось загрузить категории", "OK");
+            }
+
+            RefreshCategoryPicker();
+        }
+
+        private void SaveCategories()
+        {
+            try
+            {
+                var json = JsonSerializer.Serialize(_categories);
+                Preferences.Set("categories", json);
+            }
+            catch
+            {
+                // ignore persistence errors for now
+            }
+        }
+
+        private void RefreshCategoryPicker()
+        {
+            var picker = this.FindByName<Picker>("CategoryPicker");
+            if (picker != null)
+            {
+                // reset source to refresh UI
+                picker.ItemsSource = null;
+                picker.ItemsSource = _categories;
+            }
+        }
     }
 }

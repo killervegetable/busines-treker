@@ -18,7 +18,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("busines-treker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+b48722e6e77fd5a1f8b2f6daaa09ea4ce7836c47")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+2a436d52c35cff93d35327fb074d64ba7cc2077f")]
 [assembly: System.Reflection.AssemblyProductAttribute("busines-treker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("busines-treker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

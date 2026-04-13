@@ -50,6 +50,7 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|AnyCPU'">
 	  <AndroidCreatePackagePerAbi>True</AndroidCreatePackagePerAbi>
 	  <AndroidUseAapt2>True</AndroidUseAapt2>
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-android|AnyCPU'">
@@ -60,6 +61,16 @@
 	<PropertyGroup>
 	  <!-- Поддерживаемые ABI: armeabi-v7a и arm64-v8a -->
 	  <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+	  <!-- Указывать RuntimeIdentifiers вместо AndroidSupportedAbis -->
+	  <!-- android-arm = armeabi-v7a, android-arm64 = arm64-v8a.
+	       При необходимости добавьте android-x86;android-x64 для эмуляторов. -->
+	  <RuntimeIdentifiers>android-arm;android-arm64</RuntimeIdentifiers>
+
+	  <!-- создавать APK по ABI -->
+	  <AndroidCreatePackagePerAbi>true</AndroidCreatePackagePerAbi>
 	</PropertyGroup>
 
 	<ItemGroup>

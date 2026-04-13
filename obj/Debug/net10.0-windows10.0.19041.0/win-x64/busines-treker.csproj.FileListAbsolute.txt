@@ -493,10 +493,6 @@ C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-wind
 C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-windows10.0.19041.0\win-x64\e_sqlite3.dll
 C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-windows10.0.19041.0\win-x64\Microsoft.Windows.SDK.NET.dll
 C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-windows10.0.19041.0\win-x64\WinRT.Runtime.dll
-C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-windows10.0.19041.0\win-x64\Microsoft.Maui.Controls.HotReload.Forms.dll
-C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-windows10.0.19041.0\win-x64\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
-C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-windows10.0.19041.0\win-x64\Microsoft.VisualStudio.DesignTools.TapContract.dll
-C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-windows10.0.19041.0\win-x64\Microsoft.VisualStudio.DesignTools.XamlTapContract.dll
 C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-windows10.0.19041.0\win-x64\Microsoft.Web.WebView2.Core.Projection.dll
 C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-windows10.0.19041.0\win-x64\Microsoft.UI.pri
 C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-windows10.0.19041.0\win-x64\Microsoft.UI.Xaml.Controls.pri
@@ -580,6 +576,7 @@ C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-wind
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-windows10.0.19041.0\win-x64\busines-treker.AssemblyInfoInputs.cache
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-windows10.0.19041.0\win-x64\busines-treker.AssemblyInfo.cs
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-windows10.0.19041.0\win-x64\busines-treker.csproj.CoreCompileInputs.cache
+C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-windows10.0.19041.0\win-x64\busines-treker.sourcelink.json
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-windows10.0.19041.0\win-x64\XamlC.stamp
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-windows10.0.19041.0\win-x64\ru\busines-treker.resources.dll
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-windows10.0.19041.0\win-x64\busines-.153037C5.Up2Date
@@ -603,3 +600,7 @@ C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-wind
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-windows10.0.19041.0\win-x64\qualifiers.txt
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-windows10.0.19041.0\win-x64\qualifiers.txt.intermediate
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-windows10.0.19041.0\win-x64\MultipleQualifiersPerDimensionFound.txt
+C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-windows10.0.19041.0\win-x64\Microsoft.Maui.Controls.HotReload.Forms.dll
+C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-windows10.0.19041.0\win-x64\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
+C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-windows10.0.19041.0\win-x64\Microsoft.VisualStudio.DesignTools.TapContract.dll
+C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-windows10.0.19041.0\win-x64\Microsoft.VisualStudio.DesignTools.XamlTapContract.dll

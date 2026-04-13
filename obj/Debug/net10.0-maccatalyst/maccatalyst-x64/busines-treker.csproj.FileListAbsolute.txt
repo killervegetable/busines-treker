@@ -334,10 +334,6 @@ C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-macc
 C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-maccatalyst\maccatalyst-x64\libxamarin-dotnet-nativeaot.a
 C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-maccatalyst\maccatalyst-x64\libxamarin-dotnet.a
 C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-maccatalyst\maccatalyst-x64\libxamarin-dotnet.dylib
-C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-maccatalyst\maccatalyst-x64\Microsoft.Maui.Controls.HotReload.Forms.dll
-C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-maccatalyst\maccatalyst-x64\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
-C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-maccatalyst\maccatalyst-x64\Microsoft.VisualStudio.DesignTools.TapContract.dll
-C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-maccatalyst\maccatalyst-x64\Microsoft.VisualStudio.DesignTools.XamlTapContract.dll
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\busines-treker.csproj.AssemblyReference.cache
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\partialappmanifest\_PartialAppManifests.items
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\unpack\Microsoft.Maui.Essentials\BundleResource\xml\microsoft_maui_essentials_fileprovider_file_paths.xml
@@ -384,6 +380,7 @@ C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-macc
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\busines-treker.AssemblyInfoInputs.cache
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\busines-treker.AssemblyInfo.cs
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\busines-treker.csproj.CoreCompileInputs.cache
+C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\busines-treker.sourcelink.json
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\XamlC.stamp
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\ru\busines-treker.resources.cs
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\ru\busines-treker.resources.dll
@@ -393,3 +390,7 @@ C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-macc
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\busines-treker.pdb
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\busines-treker.genruntimeconfig.cache
 C:\Users\retur\source\repos\busines-treker\busines-treker\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\ref\busines-treker.dll
+C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-maccatalyst\maccatalyst-x64\Microsoft.Maui.Controls.HotReload.Forms.dll
+C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-maccatalyst\maccatalyst-x64\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
+C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-maccatalyst\maccatalyst-x64\Microsoft.VisualStudio.DesignTools.TapContract.dll
+C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-maccatalyst\maccatalyst-x64\Microsoft.VisualStudio.DesignTools.XamlTapContract.dll

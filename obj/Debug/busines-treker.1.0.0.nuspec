@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>busines-treker</id>
+    <version>1.0.0</version>
+    <authors>busines-treker</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="2a436d52c35cff93d35327fb074d64ba7cc2077f" />
+    <dependencies>
+      <group targetFramework="net10.0-android36.0">
+        <dependency id="Microsoft.EntityFrameworkCore.Sqlite" version="8.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Logging.Debug" version="10.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Maui.Controls" version="10.0.20" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net10.0-ios26.2">
+        <dependency id="Microsoft.EntityFrameworkCore.Sqlite" version="8.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Logging.Debug" version="10.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Maui.Controls" version="10.0.20" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net10.0-maccatalyst26.2">
+        <dependency id="Microsoft.EntityFrameworkCore.Sqlite" version="8.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Logging.Debug" version="10.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Maui.Controls" version="10.0.20" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net10.0-windows10.0.19041">
+        <dependency id="Microsoft.EntityFrameworkCore.Sqlite" version="8.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Logging.Debug" version="10.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Maui.Controls" version="10.0.20" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-android\ru\busines-treker.resources.dll" target="lib\net10.0-android36.0\ru\busines-treker.resources.dll" />
+    <file src="C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-android\busines-treker.runtimeconfig.json" target="lib\net10.0-android36.0\busines-treker.runtimeconfig.json" />
+    <file src="C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-android\busines-treker.dll" target="lib\net10.0-android36.0\busines-treker.dll" />
+    <file src="C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-android\busines-treker.xml" target="lib\net10.0-android36.0\busines-treker.xml" />
+    <file src="C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-ios\iossimulator-x64\ru\busines-treker.resources.dll" target="lib\net10.0-ios26.2\ru\busines-treker.resources.dll" />
+    <file src="C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-ios\iossimulator-x64\busines-treker.runtimeconfig.json" target="lib\net10.0-ios26.2\busines-treker.runtimeconfig.json" />
+    <file src="C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-ios\iossimulator-x64\busines-treker.dll" target="lib\net10.0-ios26.2\busines-treker.dll" />
+    <file src="C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-maccatalyst\maccatalyst-x64\ru\busines-treker.resources.dll" target="lib\net10.0-maccatalyst26.2\ru\busines-treker.resources.dll" />
+    <file src="C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-maccatalyst\maccatalyst-x64\busines-treker.runtimeconfig.json" target="lib\net10.0-maccatalyst26.2\busines-treker.runtimeconfig.json" />
+    <file src="C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-maccatalyst\maccatalyst-x64\busines-treker.dll" target="lib\net10.0-maccatalyst26.2\busines-treker.dll" />
+    <file src="C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-windows10.0.19041.0\win-x64\ru\busines-treker.resources.dll" target="lib\net10.0-windows10.0.19041\ru\busines-treker.resources.dll" />
+    <file src="C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-windows10.0.19041.0\win-x64\busines-treker.runtimeconfig.json" target="lib\net10.0-windows10.0.19041\busines-treker.runtimeconfig.json" />
+    <file src="C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-windows10.0.19041.0\win-x64\busines-treker.dll" target="lib\net10.0-windows10.0.19041\busines-treker.dll" />
+    <file src="C:\Users\retur\source\repos\busines-treker\busines-treker\bin\Debug\net10.0-windows10.0.19041.0\win-x64\resources.pri" target="lib\net10.0-windows10.0.19041\resources.pri" />
+  </files>
+</package>
